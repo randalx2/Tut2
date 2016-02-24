@@ -7,6 +7,8 @@
 //Program gives proper results however it does seem to trigger a Debug Assertion Error at run time
 //Could be an issue with the compiler or some bugs in Visual Studio 2013 on my personal laptop
 
+//MERGED FROM FRACTION SIMPLIFIER BRANCH WITH NO CONFLICTS DETECTED
+
 #include <iostream>
 #include <cstdio>
 #include <string>
