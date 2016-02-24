@@ -4,6 +4,8 @@
 //24 FEBRUARY 2016
 /**********************************************************************************************************************/
 
+//Program gives proper results however it does seem to trigger a Debug Assertion Error at run time
+
 #include <iostream>
 #include <cstdio>
 #include <string>
@@ -105,7 +107,7 @@ public: Fraction(){              //Default Constructor
 
 int main()
 {
-	char input = 'x'; //User input character
+	char input = 'x'; //User input character initialized
 
 	Fraction *Mathboy = new Fraction(); //OBJECT CREATED and memory allocated and constructor called
 	cout << " Welcome to Fraction Mathboy game" << endl;
@@ -129,6 +131,7 @@ int main()
 	case '3': Mathboy->multiply();
 		break;
 	case '4': Mathboy->divide();
+		break;
 	default: cout << "Please Enter a valid input" << endl;
 	}
 
