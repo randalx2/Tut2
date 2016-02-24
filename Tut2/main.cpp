@@ -5,6 +5,7 @@
 /**********************************************************************************************************************/
 
 //Program gives proper results however it does seem to trigger a Debug Assertion Error at run time
+//Could be an issue with the compiler or some bugs in Visual Studio 2013 on my personal laptop
 
 #include <iostream>
 #include <cstdio>
