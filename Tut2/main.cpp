@@ -46,7 +46,7 @@ public: Fraction(){              //Default Constructor
 			delete ResNum;
 			delete ResDen;
 		}
-		// Defining method prototypes
+		// Defining methods and prototypes
 		void add()
 		{
 			*result1 = *(num1)**(denom2);
@@ -55,7 +55,7 @@ public: Fraction(){              //Default Constructor
 			*ResNum = *(result1)+*(result2);
 			*ResDen = *(result3);
 			//First attempt to display the result before simplifying the fractions
-			cout << *ResNum << " / " << *ResDen;
+			cout << *ResNum << " / " << *ResDen << endl;
 		};
 
 		void subtract()
@@ -66,7 +66,7 @@ public: Fraction(){              //Default Constructor
 			*ResNum = *(result1)-*(result2);
 			*ResDen = *(result3);
 			//First attempt to display the result before simplifying the fractions
-			cout << *ResNum << " / " << *ResDen;
+			cout << *ResNum << " / " << *ResDen << endl;
 		};
 
 		void multiply()
@@ -74,7 +74,7 @@ public: Fraction(){              //Default Constructor
 			*ResNum = *(num1)**(num2);
 			*ResDen = *(denom1)**(denom2);
 			//First attempt to display the result before simplifying the fractions
-			cout << *ResNum << " / " << *ResDen;
+			cout << *ResNum << " / " << *ResDen << endl;
 
 		};
 
@@ -83,13 +83,13 @@ public: Fraction(){              //Default Constructor
 			*ResNum = *(num1)**(denom2);
 			*ResDen = *(denom1)**(num2);
 			//First attempt to display the result before simplifying the fractions
-			cout << *ResNum << " / " << *ResDen;
+			cout << *ResNum << " / " << *ResDen << endl;
 		};
 
 		void print_lowest_terms()
 		{
 			//Method is used to finally print out the fraction in lowest terms
-			//May not be needed as this operation can be nested in the other methods
+			
 			int Hval = 0, Lval = 0;   //Initialize temp variables
 			if (*ResNum > *ResDen)
 			{
@@ -102,9 +102,9 @@ public: Fraction(){              //Default Constructor
 				Lval = *ResNum;
 			}
 
-			for (int i = Lval; i > 0; i--)
+			for (int i = Lval; i > 0; i--)     //Start iteration loop to reach lowest terms
 			{
-				if ((Lval % i == 0) && (Hval % i == 0))
+				if ((Lval % i == 0) && (Hval % i == 0))  //Check if the number is directly divisible
 				{
 					*ResNum = *ResNum / i;
 					*ResDen = *ResDen / i;
@@ -138,6 +138,7 @@ int main()
 	char input = 'x'; //User input character initialized
 
 	Fraction *Mathboy = new Fraction(); //OBJECT CREATED and memory allocated and constructor called
+
 	cout << " Welcome to Fraction Mathboy game" << endl;
 	cout << "This will diplay the result of math operations on fractions" << endl;
 
@@ -151,7 +152,8 @@ int main()
 
 	cin >> input;
 
-	switch (input){
+	switch (input)
+	{
 	case '1': Mathboy->add();
 		break;
 	case '2': Mathboy->subtract();
