@@ -16,7 +16,8 @@ using namespace std;
 
 class Fraction {
 private: int *num1, *denom1, *num2, *denom2, *result1, *result2, *result3; // private pointer attributes for protection
-		 int *ResNum, *ResDen;
+
+	     int *ResNum, *ResDen;  
 
 public: Fraction(){              //Default Constructor
 			num1 = new int;       //Allocating dynamic memory for attributes
@@ -73,6 +74,7 @@ public: Fraction(){              //Default Constructor
 			*ResDen = *(denom1)**(denom2);
 			//First attempt to display the result before simplifying the fractions
 			cout << *ResNum << " / " << *ResDen;
+
 		};
 
 		void divide()
@@ -83,20 +85,45 @@ public: Fraction(){              //Default Constructor
 			cout << *ResNum << " / " << *ResDen;
 		};
 
-		void print()
+		void print_lowest_terms()
 		{
 			//Method is used to finally print out the fraction in lowest terms
+			//May not be needed as this operation can be nested in the other methods
+			int Hval = 0, Lval = 0;   //Initialize temp variables
+			if (*ResNum > *ResDen)
+			{
+				Lval = *ResDen;
+				Hval = *ResNum;
+			}
+			else
+			{
+				Hval = *ResDen;
+				Lval = *ResNum;
+			}
+
+			for (int i = Lval; i > 0; i--)
+			{
+				if ((Lval % i == 0) && (Hval % i == 0))
+				{
+					*ResNum = *ResNum / i;
+					*ResDen = *ResDen / i;
+					break;    //Conditional break statement to exit loop after iterating to this point
+				}
+			}
+
+			cout << *ResNum << " / " << *ResDen << endl;
+
 		};
 
 		void GetNumDenom()   //Method to prompt user for input
 		{
 			int iNum = 0;
 			int iDenom = 1;
-			cout << "Please Enter the Numerator and Denominator for the First Fraction separated by spaces" << endl;
+			cout << "Please Enter the Numerator and Denominator for the First Fraction" << endl;
 			cin >> iNum >> iDenom;
 			*num1 = iNum;            //Initialize Object private attributes with user input
 			*denom1 = iDenom;
-			cout << "Please Enter the Numerator and Denominator for the Second Fraction separated by spaces" << endl;
+			cout << "Please Enter the Numerator and Denominator for the Second Fraction" << endl;
 			cin >> iNum >> iDenom;
 			*num2 = iNum;
 			*denom2 = iDenom;
@@ -111,11 +138,11 @@ int main()
 
 	Fraction *Mathboy = new Fraction(); //OBJECT CREATED and memory allocated and constructor called
 	cout << " Welcome to Fraction Mathboy game" << endl;
-	cout << "This will diplay the result of the addition, subtraction, multiplication or division of two fractions" << endl;
+	cout << "This will diplay the result of math operations on fractions" << endl;
 
 	Mathboy->GetNumDenom();
 
-	cout << "Please choose the corresponding math operation you would like to perform accordingly" << endl;
+	cout << "Please choose the math operation you would like to perform" << endl;
 	cout << "Press 1 for ADDITION" << endl;
 	cout << "Press 2 for SUBTRACTION" << endl;
 	cout << "Press 3 for MULTIPLICATION" << endl;
@@ -134,6 +161,11 @@ int main()
 		break;
 	default: cout << "Please Enter a valid input" << endl;
 	}
+
+	cout << "The Fraction in Simplest terms is :" << endl;
+
+	Mathboy->print_lowest_terms();
+	
 
 	//Enter the print function for simplifying the numbers here
 	//We done using the object so we can release it from memory
