@@ -8,7 +8,7 @@
 //Could be an issue with the compiler or some bugs in Visual Studio 2013 on my personal laptop
 
 //MERGED FROM FRACTION SIMPLIFIER BRANCH WITH NO CONFLICTS DETECTED
-
+//Program prompts user to input two fractions to perform math operations
 #include <iostream>
 #include <cstdio>
 #include <string>
