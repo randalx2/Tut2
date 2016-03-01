@@ -23,125 +23,136 @@
 using namespace std;
 
 class Fraction {
-private: int *num, *denom, /* *num2, *denom2, */ *result1, *result2, *result3; // private pointer attributes for protection
+private: int *numerator, *denominator; //Using pointer method to allocate dynamic memory to attributes
 
-	     int *ResNum, *ResDen;  
+	     
+public: Fraction()
+{              //Default Constructor
+			numerator = new int;       //Allocating dynamic memory for attributes
+			denominator = new int; 
 
-public: Fraction(){              //Default Constructor
-			num = new int;       //Allocating dynamic memory for attributes
-			denom = new int; 
-			*denom = 1; //Initialize denominator to 1 as default value
+			*numerator = 1;
+			*denominator = 1;         //Initialize denominator to 1 as default value
+			                   //Use checking in main programe for division by 0 protection
 
-			//num2 = new int;
-			//denom2 = new int;
-
-			result1 = new int;
-			result2 = new int;
-			result3 = new int;
-			ResNum = new int;
-			ResDen = new int;
 }
+		Fraction(int n, int d)    //Creating an overloading constructor to return a fraction based on user values
+		{
+			numerator = new int;
+			denominator = new int;
 
-		~Fraction(){           //Default Destructor
-			delete num;        //deleting dynamic memory for attributes
-			delete denom;
-			//delete num2;
-			//delete denom2;     //Releasing Resources
-			delete result1;
-			delete result1;
-			delete result2;
-			delete result3;
-			delete ResNum;
-			delete ResDen;
+			*numerator = n;      //Assign the numerator
+			
+			//Doing safefty check for denominator values of 0
+			if (d == 0)
+			{
+				cout << "A Zero value denominator is not allowed -- Exiting Program" << endl;
+				exit(0);
+			}
+			else 
+			{
+				*denominator = d;
+			}
+		}
+
+		~Fraction(){                  //Default Destructor
+			delete numerator;        //deleting dynamic memory for attributes
+			delete denominator;
+			
 		}
 		// Defining methods and prototypes
-		void add()
+
+		Fraction add(Fraction nextFraction)   //Creating a method of user defined type fraction with in built fraction object
 		{
-			*result1 = *(num1)**(denom2);
-			*result2 = *(denom1)**(num2);
-			*result3 = *(denom1)**(denom2);
-			*ResNum = *(result1)+*(result2);
-			*ResDen = *(result3);
-			//First attempt to display the result before simplifying the fractions
-			cout << *ResNum << " / " << *ResDen << endl;
+			int n, d;
+			n = *numerator**(nextFraction.denominator) + *denominator**(nextFraction.numerator);
+			d = *denominator**(nextFraction.denominator);
+
+			get_lowest_terms(n, d);
+
+			return Fraction(n, d);
+			
 		};
 
-		void subtract()
+		Fraction subtract(Fraction nextFraction)  // NB IN BUILT OBJECTS WITHIN CLASS METHODS ARE ONLY VISIBLE TO METHODS
 		{
-			*result1 = *(num1)**(denom2);
-			*result2 = *(denom1)**(num2);
-			*result3 = *(denom1)**(denom2);
-			*ResNum = *(result1)-*(result2);
-			*ResDen = *(result3);
-			//First attempt to display the result before simplifying the fractions
-			cout << *ResNum << " / " << *ResDen << endl;
+			int n, d;
+			n = *numerator**(nextFraction.denominator) - *denominator**(nextFraction.numerator);
+			d = *denominator**(nextFraction.denominator);
+
+			get_lowest_terms(n, d);
+
+			return Fraction(n, d);
 		};
 
-		void multiply()
+		Fraction multiply(Fraction nextFraction)
 		{
-			*ResNum = *(num1)**(num2);
-			*ResDen = *(denom1)**(denom2);
-			//First attempt to display the result before simplifying the fractions
-			cout << *ResNum << " / " << *ResDen << endl;
+			int n, d;
+			n = *numerator**(nextFraction.numerator);
+			d = *denominator**(nextFraction.denominator);
+
+			get_lowest_terms(n, d);
+
+			return Fraction(n, d);
 
 		};
 
-		void divide()
+		Fraction divide(Fraction nextFraction)
 		{
-			*ResNum = *(num1)**(denom2);
-			*ResDen = *(denom1)**(num2);
-			//First attempt to display the result before simplifying the fractions
-			cout << *ResNum << " / " << *ResDen << endl;
+			int n, d;
+			n = *numerator**(nextFraction.denominator);
+			d = *denominator**(nextFraction.numerator);
+			get_lowest_terms(n, d);
+
+			return Fraction(n, d);
+
 		};
 
-		void print_lowest_terms()
+		void get_lowest_terms(int n, int d)
 		{
 			//Method is used to finally print out the fraction in lowest terms
 			
 			int Hval = 0, Lval = 0;   //Initialize temp variables
-			if (*ResNum > *ResDen)
+			if (n > d)
 			{
-				Lval = *ResDen;
-				Hval = *ResNum;
+				Lval = d;
+				Hval = n;
 			}
 			else
 			{
-				Hval = *ResDen;
-				Lval = *ResNum;
+				Hval = d;
+				Lval = n;
 			}
 
 			for (int i = Lval; i > 0; i--)     //Start iteration loop to reach lowest terms
 			{
 				if ((Lval % i == 0) && (Hval % i == 0))  //Check if the number is directly divisible
 				{
-					*ResNum = *ResNum / i;
-					*ResDen = *ResDen / i;
+					n = n / i;
+					d = d / i;
 					break;    //Conditional break statement to exit loop after iterating to this point
 				}
 			}
 
-			cout << *ResNum << " / " << *ResDen << endl;
-
 		};
 
-		void getNumDenom()   //Method to prompt user for input
+		void print()
 		{
-			//int iNum = 0;
-			//int iDenom = 1;   //Safety measure to prevent undefined fractions
+			//Function Simply prints out the values stored the attributes after calculations
+			cout << *numerator << " / " << *denominator;
+		}
 
-			cout << "Please Enter the Numerator and Denominator for the Your First Fraction" << endl;
-			cin >> iNum >> iDenom;
-			*num1 = iNum;            //Initialize Object private attributes with user input
-			*denom1 = iDenom;
-
-			//Attempting to perform additions to the Fraction ended and result obtained previously
-
-			cout << "Please Enter the Numerator and Denominator for the New Fraction" << endl;
-			cin >> iNum >> iDenom;
-			*num2 = iNum;
-			*denom2 = iDenom;
+		void getNumDenom(int iNum, int iDenom)   //Method to prompt user for input
+		{
+			
 
 		}; 
+
+		void setNumDenom()
+		{
+
+		
+		};
 
 };
 
@@ -149,8 +160,8 @@ int main()
 {
 	char input = 'x'; //User input character initialized
 
-	Fraction *Fract1 = new Fraction(); //OBJECT CREATED and memory allocated and constructor called
-	Fraction *FractNew = new Fraction();
+	//Fraction *Fract1 = new Fraction(); //OBJECT CREATED and memory allocated and constructor called
+	//Fraction *FractNew = new Fraction();
 
 	cout << " Welcome to Fraction Mathboy game" << endl;
 	cout << "This will diplay the result of math operations on fractions" << endl;
