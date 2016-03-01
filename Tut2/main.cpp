@@ -23,16 +23,17 @@
 using namespace std;
 
 class Fraction {
-private: int *num1, *denom1, *num2, *denom2, *result1, *result2, *result3; // private pointer attributes for protection
+private: int *num, *denom, /* *num2, *denom2, */ *result1, *result2, *result3; // private pointer attributes for protection
 
 	     int *ResNum, *ResDen;  
 
 public: Fraction(){              //Default Constructor
-			num1 = new int;       //Allocating dynamic memory for attributes
-			denom1 = new int;
+			num = new int;       //Allocating dynamic memory for attributes
+			denom = new int; 
+			*denom = 1; //Initialize denominator to 1 as default value
 
-			num2 = new int;
-			denom2 = new int;
+			//num2 = new int;
+			//denom2 = new int;
 
 			result1 = new int;
 			result2 = new int;
@@ -42,10 +43,10 @@ public: Fraction(){              //Default Constructor
 }
 
 		~Fraction(){           //Default Destructor
-			delete num1;        //deleting dynamic memory for attributes
-			delete denom1;
-			delete num2;
-			delete denom2;     //Releasing Resources
+			delete num;        //deleting dynamic memory for attributes
+			delete denom;
+			//delete num2;
+			//delete denom2;     //Releasing Resources
 			delete result1;
 			delete result1;
 			delete result2;
@@ -123,15 +124,19 @@ public: Fraction(){              //Default Constructor
 
 		};
 
-		void GetNumDenom()   //Method to prompt user for input
+		void getNumDenom()   //Method to prompt user for input
 		{
-			int iNum = 0;
-			int iDenom = 1;
-			cout << "Please Enter the Numerator and Denominator for the First Fraction" << endl;
+			//int iNum = 0;
+			//int iDenom = 1;   //Safety measure to prevent undefined fractions
+
+			cout << "Please Enter the Numerator and Denominator for the Your First Fraction" << endl;
 			cin >> iNum >> iDenom;
 			*num1 = iNum;            //Initialize Object private attributes with user input
 			*denom1 = iDenom;
-			cout << "Please Enter the Numerator and Denominator for the Second Fraction" << endl;
+
+			//Attempting to perform additions to the Fraction ended and result obtained previously
+
+			cout << "Please Enter the Numerator and Denominator for the New Fraction" << endl;
 			cin >> iNum >> iDenom;
 			*num2 = iNum;
 			*denom2 = iDenom;
@@ -145,11 +150,12 @@ int main()
 	char input = 'x'; //User input character initialized
 
 	Fraction *Fract1 = new Fraction(); //OBJECT CREATED and memory allocated and constructor called
+	Fraction *FractNew = new Fraction();
 
 	cout << " Welcome to Fraction Mathboy game" << endl;
 	cout << "This will diplay the result of math operations on fractions" << endl;
 
-	Fract1->GetNumDenom();
+	Fract1->getNumDenom();
 
 	cout << "Please choose the math operation you would like to perform" << endl;
 	cout << "Press 1 for ADDITION" << endl;
