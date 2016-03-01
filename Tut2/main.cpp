@@ -11,10 +11,12 @@
 //Program prompts user to input two fractions to perform math operations
 
 // 1 MARCH 2016
-/*Code Modified in Recurring_Values Branch to allow for successive calculations of new fractions*/
+/*Code Modified in Recurring_Values Branch to allow for successive calculations of new fractions based on values assigned in code*/
 /*Changed Mathboy object name to FractA, FractB and FractC**/
 /*This branch uses values directly from the code to test the methods using these specs*/
-/*No user input is needed from cin function*/
+/*No user input is needed from cin function in this branch -- to be added later*/
+/*This branch shows how to use built in objects within a class when using methods*/
+/*For instance it shows how the user defined datatype called fraction can be used to define methods and their arguments*/
 
 #include <iostream>
 #include <cstdio>
@@ -40,10 +42,8 @@ public: Fraction()
 }
 		Fraction(int n, int d)    //Creating an overloading constructor to return a fraction based on user values when object created using overloading
 		{                         //Useful when creating inbuilt class objects to perform operations on
-			numerator = new int;
+			numerator = new int;  //Must allocate memory in each constructor again
 			denominator = new int;
-
-			
 
 			*numerator = n;      //Assign the numerator
 			
@@ -51,7 +51,7 @@ public: Fraction()
 			if (d == 0)
 			{
 				cout << "A Zero value denominator is not allowed -- Exiting Program" << endl;
-				exit(0);
+				exit(0); //Program will exit with error code if 0 is detected as a denominator
 			}
 			else 
 			{
@@ -73,8 +73,6 @@ public: Fraction()
 			n = *numerator**(nextFraction.denominator) + *denominator**(nextFraction.numerator);
 			d = *denominator**(nextFraction.denominator);
 
-			
-
 			return Fraction(n / gcd(n,d), d / gcd(n,d));
 			
 		};
@@ -85,8 +83,6 @@ public: Fraction()
 			n = *numerator**(nextFraction.denominator) - *denominator**(nextFraction.numerator);
 			d = *denominator**(nextFraction.denominator);
 
-			
-
 			return Fraction(n / gcd(n,d), d / gcd(n,d));
 		};
 
@@ -95,8 +91,6 @@ public: Fraction()
 			int n, d;
 			n = *numerator**(nextFraction.numerator);
 			d = *denominator**(nextFraction.denominator);
-
-			
 
 			return Fraction(n / gcd(n,d), d / gcd(n,d));
 
@@ -108,12 +102,13 @@ public: Fraction()
 			n = *numerator**(nextFraction.denominator);
 			d = *denominator**(nextFraction.numerator);
 			
-
 			return Fraction(n / gcd(n,d), d / gcd(n,d));
 
 		};
 
 		// method to get lowest terms for fractions
+		//the previous method from other branches has been omitted in favour of this on
+		//since this method makes it easier to simply return a fraction in simplest terms
 		int gcd(int n, int d)
 		{
 			int remainder;
@@ -129,7 +124,7 @@ public: Fraction()
 		void print()
 		{
 			//Function Simply prints out the values stored the attributes after calculations
-			cout << *numerator << " / " << *denominator << endl;   //these attributes will change according to the fraction object constructor
+			cout << *numerator << " / " << *denominator << endl;  
 		}
 
 		/**Fraction getNumDenom()   //Method to prompt user for input
@@ -142,9 +137,7 @@ public: Fraction()
 		
 			return Fraction(iNum, iDenom);  //Overloading constructor called within class
 
-		}; **/
-
-		
+		}; **/		
 };
 
 int main()
@@ -155,6 +148,8 @@ int main()
 	Fraction *FractA = new Fraction(1,2); // Overloading constuctor called and assigned memory
 	Fraction *FractB = new Fraction(1,4);
 	Fraction *FractC = new Fraction();  // default constructor called
+
+	/*Running basic tests to check correctness*/
 
 	*FractC = FractA->add(*FractB);  //Result should be 3/4
 	FractC->print();
@@ -168,6 +163,7 @@ int main()
 	*FractC = FractA->divide(*FractB);  //Result should be 2
 	FractC->print();
 
+	//This block may be needed later so I simply commented it out
 	/**cout << "Please choose the math operation you would like to perform" << endl;
 	cout << "Press 1 for ADDITION" << endl;
 	cout << "Press 2 for SUBTRACTION" << endl;
@@ -195,7 +191,7 @@ int main()
 	
 
 	//Enter the print function for simplifying the numbers here
-	//We done using the object so we can release it from memory
+	//We done using the objects so we can release them from memory
 
 	delete FractA;
 	delete FractB;
