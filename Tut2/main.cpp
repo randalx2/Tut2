@@ -9,6 +9,11 @@
 
 //MERGED FROM FRACTION SIMPLIFIER BRANCH WITH NO CONFLICTS DETECTED
 //Program prompts user to input two fractions to perform math operations
+
+// 1 MARCH 2016
+/*Code Modified in Recurring_Values Branch to allow for successive calculations of new fractions*/
+/*Changed Mathboy object name to Fract1 -- Added in any Fraction Object as FractNew*/
+
 #include <iostream>
 #include <cstdio>
 #include <string>
@@ -139,12 +144,12 @@ int main()
 {
 	char input = 'x'; //User input character initialized
 
-	Fraction *Mathboy = new Fraction(); //OBJECT CREATED and memory allocated and constructor called
+	Fraction *Fract1 = new Fraction(); //OBJECT CREATED and memory allocated and constructor called
 
 	cout << " Welcome to Fraction Mathboy game" << endl;
 	cout << "This will diplay the result of math operations on fractions" << endl;
 
-	Mathboy->GetNumDenom();
+	Fract1->GetNumDenom();
 
 	cout << "Please choose the math operation you would like to perform" << endl;
 	cout << "Press 1 for ADDITION" << endl;
@@ -156,26 +161,26 @@ int main()
 
 	switch (input)
 	{
-	case '1': Mathboy->add();
+	case '1': Fract1->add();
 		break;
-	case '2': Mathboy->subtract();
+	case '2': Fract1->subtract();
 		break;
-	case '3': Mathboy->multiply();
+	case '3': Fract1->multiply();
 		break;
-	case '4': Mathboy->divide();
+	case '4': Fract1->divide();
 		break;
 	default: cout << "Please Enter a valid input" << endl;
 	}
 
 	cout << "The Fraction in Simplest terms is :" << endl;
 
-	Mathboy->print_lowest_terms();
+	Fract1->print_lowest_terms();
 	
 
 	//Enter the print function for simplifying the numbers here
 	//We done using the object so we can release it from memory
 
-	delete Mathboy;
+	delete Fract1;
 
 	system("PAUSE");
 	return 0;
