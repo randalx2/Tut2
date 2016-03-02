@@ -2,7 +2,7 @@
 //202515355
 //COMPUTER METHODS 3 -- TUT2
 //24 FEBRUARY 2016
-/**********************************************************************************************************************/
+/**********************************************************************************************************************************/
 
 //Program gives proper results however it does seem to trigger a Debug Assertion Error at run time
 //Could be an issue with the compiler or some bugs in Visual Studio 2013 on my personal laptop
@@ -18,6 +18,10 @@
 /*This branch shows how to use built in objects within a class when using methods*/
 /*For instance it shows how the user defined datatype called fraction can be used to define methods and their arguments*/
 
+/*2 MARCH 2016 MODIFYING THE MyPC-Recurring_Values Branch to enable user input of the fractions and operations*/
+
+/**********************************************************************************************************************************/
+
 #include <iostream>
 #include <cstdio>
 #include <string>
@@ -25,6 +29,8 @@
 #include <ctime>
 
 using namespace std;
+
+int iNum1 = 1, iNum2 = 1, iDenom1 = 1, iDenom2 = 1;  //Using global variables for input
 
 class Fraction {
 private: int *numerator, *denominator; //Using pointer method to allocate dynamic memory to attributes
@@ -126,18 +132,18 @@ public: Fraction()
 			//Function Simply prints out the values stored the attributes after calculations
 			cout << *numerator << " / " << *denominator << endl;  
 		}
+	
+};
 
-		/**Fraction getNumDenom()   //Method to prompt user for input
-		{
-			//Assing values based on user's input
-			int iNum, iDenom;
+void getNumDenom()   //Function to prompt user for input
+{
+	//Assing values based on user's input
+	cout << "Please Enter the Numerator and Demoninator for your First Fraction " << endl;
+	cin >> iNum1 >> iDenom1;
 
-			cout << "Please Enter the Numerator and Demoninator for your Fraction " << endl;
-			cin >> iNum >> iDenom;
-		
-			return Fraction(iNum, iDenom);  //Overloading constructor called within class
+	cout << "Please Enter the Numerator and Demoninator for your Second Fraction " << endl;
+	cin >> iNum2 >> iDenom2;
 
-		}; **/		
 };
 
 int main()
@@ -145,11 +151,16 @@ int main()
 	cout << " Welcome to Fraction Mathboy game" << endl;
 	cout << "This will diplay the result of math operations on fractions" << endl;
 
-	Fraction *FractA = new Fraction(1,2); // Overloading constuctor called and assigned memory
-	Fraction *FractB = new Fraction(1,4);
-	Fraction *FractC = new Fraction();  // default constructor called
+	getNumDenom(); //Get user input
+
+	Fraction *FractA = new Fraction(iNum1,iDenom1); // Overloading constuctor called and assigned memory
+	Fraction *FractB = new Fraction(iNum2,iDenom2);
+
+	Fraction *FractC = new Fraction();  // default constructor called -- Store result in this object
 
 	/*Running basic tests to check correctness*/
+
+	cout << "The results of addition, subtraction, multiplication and division are: " << endl;
 
 	*FractC = FractA->add(*FractB);  //Result should be 3/4
 	FractC->print();
