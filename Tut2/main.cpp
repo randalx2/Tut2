@@ -154,7 +154,7 @@ int main()
 	getNumDenom(); //Get user input
 
 	Fraction *FractA = new Fraction(iNum1,iDenom1); // Overloading constuctor called and assigned memory
-	Fraction *FractB = new Fraction(iNum2,iDenom2);
+	Fraction *FractB = new Fraction(iNum2,iDenom2); //using user input variables to assign parameters of overloading constructor
 
 	Fraction *FractC = new Fraction();  // default constructor called -- Store result in this object
 
