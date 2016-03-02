@@ -36,17 +36,9 @@ public: Fraction(){              //Default Constructor
 			ResDen = new int;
 }
 
-		~Fraction(){           //Default Destructor
-			delete num1;        //deleting dynamic memory for attributes
-			delete denom1;
-			delete num2;
-			delete denom2;     //Releasing Resources
-			delete result1;
-			delete result1;
-			delete result2;
-			delete result3;
-			delete ResNum;
-			delete ResDen;
+		~Fraction()
+		{           //Default Destructor
+			
 		}
 		// Defining methods and prototypes
 		void add()
