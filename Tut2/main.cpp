@@ -88,7 +88,7 @@ public: Fraction()
 
 		Fraction operator+(Fraction nextFraction)  //Operator overloading method for addition
 		{
-			int n, d;
+			int n, d; //Needed temp storage variables for operator overloading methods
 			n = *numerator**(nextFraction.denominator) + *denominator**(nextFraction.numerator);
 			d = *denominator**(nextFraction.denominator);
 
@@ -208,7 +208,7 @@ int main()
 	//*FractC = FractA->add(*FractB);  //Result should be 3/4
 
 	*FractC = *FractA + *FractB;
-	FractC->print();
+	FractC->print(); //Print out the attributes stored in FractC object
 
 	//*FractC = FractA->subtract(*FractB);  //Result should be 1/4
 
@@ -253,7 +253,7 @@ int main()
 	
 
 	//Enter the print function for simplifying the numbers here
-	//We done using the objects so we can release them from memory
+	//We are done using the objects so we can release them from memory
 
 	delete FractA;
 	delete FractB;
