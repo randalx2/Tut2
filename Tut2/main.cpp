@@ -4,9 +4,7 @@
 //24 FEBRUARY 2016
 /**********************************************************************************************************************************/
 
-//Program gives proper results however it does seem to trigger a Debug Assertion Error at run time
-//Could be an issue with the compiler or some bugs in Visual Studio 2013 on my personal laptop
-
+//Program gives proper results 
 //MERGED FROM FRACTION SIMPLIFIER BRANCH WITH NO CONFLICTS DETECTED
 //Program prompts user to input two fractions to perform math operations
 
@@ -23,6 +21,7 @@
 /**********************************************************************************************************************************/
 /*3 MARCH 2016 -- Merged User Input Branch back into Master*/
 /*3 MARCH 2016-- Will Attempt to alter code to use operator overloading in Branch "Operator_Overloading"**************************/
+/*Last commit has been pushed for this tut and all final core specs have been successfully met -- Merged into Master Branch*/
 
 /***************Previous Methods have been commented out instead of deleted For future reference*************************************************/
 #include <iostream>
