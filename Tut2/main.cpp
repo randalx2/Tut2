@@ -23,6 +23,8 @@
 /**********************************************************************************************************************************/
 /*3 MARCH 2016 -- Merged User Input Branch back into Master*/
 /*3 MARCH 2016-- Will Attempt to alter code to use operator overloading in Branch "Operator_Overloading"**************************/
+
+/***************Previous Methods have been commented out instead of deleted For future reference*************************************************/
 #include <iostream>
 #include <cstdio>
 #include <string>
@@ -74,7 +76,7 @@ public: Fraction()
 
 		// Defining methods and prototypes
 
-		Fraction add(Fraction nextFraction)   //Creating a method of user defined datatype argument object
+		/*Fraction add(Fraction nextFraction)   //Creating a method of user defined datatype argument object
 		{
 			int n, d;
 			n = *numerator**(nextFraction.denominator) + *denominator**(nextFraction.numerator);
@@ -82,18 +84,37 @@ public: Fraction()
 
 			return Fraction(n / gcd(n,d), d / gcd(n,d));
 			
-		};
+		};*/
 
-		Fraction subtract(Fraction nextFraction)  // NB IN BUILT OBJECTS WITHIN CLASS METHODS ARE ONLY VISIBLE TO METHODS
+		Fraction operator+(Fraction nextFraction)  //Operator overloading method for addition
+		{
+			int n, d;
+			n = *numerator**(nextFraction.denominator) + *denominator**(nextFraction.numerator);
+			d = *denominator**(nextFraction.denominator);
+
+			return Fraction(n / gcd(n, d), d / gcd(n, d));
+		}
+
+
+		/*Fraction subtract(Fraction nextFraction)  // NB IN BUILT OBJECTS WITHIN CLASS METHODS ARE ONLY VISIBLE TO METHODS
 		{
 			int n, d;
 			n = *numerator**(nextFraction.denominator) - *denominator**(nextFraction.numerator);
 			d = *denominator**(nextFraction.denominator);
 
 			return Fraction(n / gcd(n,d), d / gcd(n,d));
-		};
+		};*/
 
-		Fraction multiply(Fraction nextFraction)
+		Fraction operator-(Fraction nextFraction)  //Operator overloading method for subtraction
+		{
+			int n, d;
+			n = *numerator**(nextFraction.denominator) - *denominator**(nextFraction.numerator);
+			d = *denominator**(nextFraction.denominator);
+
+			return Fraction(n / gcd(n, d), d / gcd(n, d));
+		}
+
+		/*Fraction multiply(Fraction nextFraction)
 		{
 			int n, d;
 			n = *numerator**(nextFraction.numerator);
@@ -101,9 +122,18 @@ public: Fraction()
 
 			return Fraction(n / gcd(n,d), d / gcd(n,d));
 
-		};
+		};*/
 
-		Fraction divide(Fraction nextFraction)
+		Fraction operator*(Fraction nextFraction)  //Operator overloading method for multiplication
+		{
+			int n, d;
+			n = *numerator**(nextFraction.numerator);
+			d = *denominator**(nextFraction.denominator);
+
+			return Fraction(n / gcd(n, d), d / gcd(n, d));
+		}
+
+		/*Fraction divide(Fraction nextFraction)
 		{
 			int n, d;
 			n = *numerator**(nextFraction.denominator);
@@ -111,11 +141,21 @@ public: Fraction()
 			
 			return Fraction(n / gcd(n,d), d / gcd(n,d));
 
-		};
+		};*/
+
+		Fraction operator/(Fraction nextFraction)  //Operator Overloading method for division
+		{
+			int n, d;
+			n = *numerator**(nextFraction.denominator);
+			d = *denominator**(nextFraction.numerator);
+
+			return Fraction(n / gcd(n, d), d / gcd(n, d));
+		}
 
 		// method to get lowest terms for fractions
-		//the previous method from other branches has been omitted in favour of this on
+		//the previous method from other branches has been omitted in favour of this one -- Euclid's Algortith gcd
 		//since this method makes it easier to simply return a fraction in simplest terms
+
 		int gcd(int n, int d)
 		{
 			int remainder;
@@ -152,7 +192,7 @@ int main()
 	cout << " Welcome to Fraction Mathboy game" << endl;
 	cout << "This will diplay the result of math operations on fractions" << endl;
 
-	getNumDenom(); //Get user input
+	getNumDenom(); //Get user input -- Accessor Function
 
 	Fraction *FractA = new Fraction(iNum1,iDenom1); // Overloading constuctor called and assigned memory
 	Fraction *FractB = new Fraction(iNum2,iDenom2); //using user input variables to assign parameters of overloading constructor
@@ -163,16 +203,26 @@ int main()
 
 	cout << "The results of addition, subtraction, multiplication and division are: " << endl;
 
-	*FractC = FractA->add(*FractB);  //Result should be 3/4
+	//Previous method equations have been commented out for future reference
+
+	//*FractC = FractA->add(*FractB);  //Result should be 3/4
+
+	*FractC = *FractA + *FractB;
 	FractC->print();
 
-	*FractC = FractA->subtract(*FractB);  //Result should be 1/4
+	//*FractC = FractA->subtract(*FractB);  //Result should be 1/4
+
+	*FractC = *FractA - *FractB;
 	FractC->print();
 
-	*FractC = FractA->multiply(*FractB);  //Result should be 1/8
+	//*FractC = FractA->multiply(*FractB);  //Result should be 1/8
+
+	*FractC = *FractA**FractB;
 	FractC->print();
 
-	*FractC = FractA->divide(*FractB);  //Result should be 2
+	//*FractC = FractA->divide(*FractB);  //Result should be 2
+
+	*FractC = *FractA / *FractB;
 	FractC->print();
 
 	//This block may be needed later so I simply commented it out
