@@ -24,6 +24,8 @@
 /*Last commit has been pushed for this tut and all final core specs have been successfully met -- Merged into Master Branch*/
 
 /***************Previous Methods have been commented out instead of deleted For future reference*************************************************/
+/*6 MARCH 2016 -- Successfully overloaded the iostream operators to make it easier to input and output fractions************/
+/**************************************************************************************************************************/
 #include <iostream>
 #include <cstdio>
 #include <string>
@@ -155,6 +157,10 @@ public: Fraction()
 		//the previous method from other branches has been omitted in favour of this one -- Euclid's Algortith gcd
 		//since this method makes it easier to simply return a fraction in simplest terms
 
+		//Overloading the stream insertion and extraction operators
+		friend ostream &operator << (ostream &output, Fraction &someFraction);  //Function prototypes
+		friend istream &operator >> (istream &input, Fraction &someFraction);
+
 		int gcd(int n, int d)
 		{
 			int remainder;
@@ -170,7 +176,20 @@ public: Fraction()
 		void print()
 		{
 			//Function Simply prints out the values stored the attributes after calculations
-			cout << *numerator << " / " << *denominator << endl;  
+			cout << *numerator << " / " << *denominator << " From print method" << endl;  
+		}  //NB This function is not needed if we have overloaded the << operator for ostream
+
+
+		friend ostream &operator << (ostream &output, Fraction &someFraction){
+
+			output << *someFraction.numerator << " / " << *someFraction.denominator << " From ostream overloading method" << endl; //Displays result as fraction for cout
+			return output;
+		}
+
+		friend istream &operator >> (istream &input, Fraction &someFraction){
+
+			input >> *someFraction.numerator >> *someFraction.denominator; //simply uses cin to assign the numerator and denominator
+			return input;
 		}
 	
 };
@@ -184,19 +203,31 @@ void getNumDenom()   //Function to prompt user for input
 	cout << "Please Enter the Numerator and Demoninator for your Second Fraction " << endl;
 	cin >> iNum2 >> iDenom2;
 
-};
+};  //NB This Function is not needed if we have overloaded the stream insertion and extraction operators in this class
 
 int main()
 {
 	cout << " Welcome to Fraction Mathboy game" << endl;
 	cout << "This will diplay the result of math operations on fractions" << endl;
 
-	getNumDenom(); //Get user input -- Accessor Function
+	//getNumDenom(); //Get user input -- Accessor Function -- Not needed with iostream overloading
 
-	Fraction *FractA = new Fraction(iNum1,iDenom1); // Overloading constuctor called and assigned memory
-	Fraction *FractB = new Fraction(iNum2,iDenom2); //using user input variables to assign parameters of overloading constructor
+	//Fraction *FractA = new Fraction(iNum1,iDenom1); // Overloading constuctor called and assigned memory
+	//Fraction *FractB = new Fraction(iNum2,iDenom2); //using user input variables to assign parameters of overloading constructor
 
+	
+
+	//Since the input stream operator is overload in the class we can also use cin to set the fractions
+	Fraction *FractA = new Fraction();  //No need to use overloaded constructor now as I have overloaded the >> operator....
+	Fraction *FractB = new Fraction();  //..to get the user to input the values for the fractions
 	Fraction *FractC = new Fraction();  // default constructor called -- Store result in this object
+
+	cout << "Enter the Numerator and Denominator for the First Fraction " << endl;
+	cin >> *FractA;
+
+	cout << "Enter the Numerator and Denominator for the Second Fraction " << endl;
+	cin >> *FractB;
+
 
 	/*Running basic tests to check correctness*/
 
@@ -209,20 +240,35 @@ int main()
 	*FractC = *FractA + *FractB;
 	FractC->print(); //Print out the attributes stored in FractC object
 
+	//Next I'll repeat the printout using the overloaded stream insertion operator method
+	cout << *FractC << endl;
+
 	//*FractC = FractA->subtract(*FractB);  //Result should be 1/4
 
 	*FractC = *FractA - *FractB;
 	FractC->print();
+
+	//Next I'll repeat the printout using the overloaded stream insertion operator method
+	cout << *FractC << endl;
+
 
 	//*FractC = FractA->multiply(*FractB);  //Result should be 1/8
 
 	*FractC = *FractA**FractB;
 	FractC->print();
 
+	//Next I'll repeat the printout using the overloaded stream insertion operator method
+	cout << *FractC << endl;
+
+
 	//*FractC = FractA->divide(*FractB);  //Result should be 2
 
 	*FractC = *FractA / *FractB;
 	FractC->print();
+
+	//Next I'll repeat the printout using the overloaded stream insertion operator method
+	cout << *FractC << endl;
+
 
 	//This block may be needed later so I simply commented it out
 	/**cout << "Please choose the math operation you would like to perform" << endl;
