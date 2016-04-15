@@ -59,21 +59,46 @@ public: Fraction()
 			*numerator = n;      //Assign the numerator
 			
 			//Doing safefty check for denominator values of 0
-			if (d == 0)
+			try
 			{
-				cout << "A Zero value denominator is not allowed -- Exiting Program" << endl;
-				exit(0); //Program will exit with error code if 0 is detected as a denominator
-			}
-			else 
-			{
+				if (d == 0)
+				{
+					//cout << "A Zero value denominator is not allowed -- Exiting Program" << endl;
+					//exit(0); //Program will exit with error code if 0 is detected as a denominator
+
+					throw "Invalid Denominator Value of 0";
+				}
 				*denominator = d;
 			}
+			catch (string str)
+			{
+				cout << str;
+			}
+		
 		}
 
 		~Fraction()
 		{                  //Default Destructor
 			
 			
+		}
+
+		//Accessors
+		void getNumDenom(int &outNum, int &outDenom)
+		{
+			outNum = *numerator;
+			outDenom = *denominator;
+		}
+
+		//Accessors for the numerator and denominator separately
+		int getNum()
+		{
+			return *numerator;
+		}
+
+		int getDenom()
+		{
+			return *denominator;
 		}
 
 		// Defining methods and prototypes
@@ -195,28 +220,10 @@ public: Fraction()
 	
 };
 
-void getNumDenom()   //Function to prompt user for input
-{
-	//Assing values based on user's input
-	cout << "Please Enter the Numerator and Demoninator for your First Fraction " << endl;
-	cin >> iNum1 >> iDenom1;
-
-	cout << "Please Enter the Numerator and Demoninator for your Second Fraction " << endl;
-	cin >> iNum2 >> iDenom2;
-
-};  //NB This Function is not needed if we have overloaded the stream insertion and extraction operators in this class
-
 int main()
 {
 	cout << " Welcome to Fraction Mathboy game" << endl;
 	cout << "This will diplay the result of math operations on fractions" << endl;
-
-	//getNumDenom(); //Get user input -- Accessor Function -- Not needed with iostream overloading
-
-	//Fraction *FractA = new Fraction(iNum1,iDenom1); // Overloading constuctor called and assigned memory
-	//Fraction *FractB = new Fraction(iNum2,iDenom2); //using user input variables to assign parameters of overloading constructor
-
-	
 
 	//Since the input stream operator is overload in the class we can also use cin to set the fractions
 	Fraction *FractA = new Fraction();  //No need to use overloaded constructor now as I have overloaded the >> operator....
@@ -264,8 +271,23 @@ int main()
 
 	//*FractC = FractA->divide(*FractB);  //Result should be 2
 
-	*FractC = *FractA / *FractB;
-	FractC->print();
+	//Taking into account the possiblility that Fract B could have a value of 0
+	//Will need to check the numerator of FractB for 0
+	try
+	{
+		if (FractB->getNum() == 0)
+		{
+			throw "Fraction B is 0 value. Math Error";
+		}
+
+		*FractC = *FractA / *FractB;
+		FractC->print();
+	}
+	catch (string str)
+	{
+		cout << str;
+	}
+	
 
 	//Next I'll repeat the printout using the overloaded stream insertion operator method
 	cout << *FractC << endl;
