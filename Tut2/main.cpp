@@ -57,24 +57,7 @@ public: Fraction()
 			denominator = new int;
 
 			*numerator = n;      //Assign the numerator
-			
-			//Doing safefty check for denominator values of 0
-			try
-			{
-				if (d == 0)
-				{
-					//cout << "A Zero value denominator is not allowed -- Exiting Program" << endl;
-					//exit(0); //Program will exit with error code if 0 is detected as a denominator
-
-					throw "Invalid Denominator Value of 0";
-				}
-				*denominator = d;
-			}
-			catch (string str)
-			{
-				cout << str;
-			}
-		
+			*denominator = d;
 		}
 
 		~Fraction()
@@ -117,9 +100,19 @@ public: Fraction()
 		{
 			int n, d; //Needed temp storage variables for operator overloading methods
 			n = *numerator**(nextFraction.denominator) + *denominator**(nextFraction.numerator);
-			d = *denominator**(nextFraction.denominator);
 
-			return Fraction(n / gcd(n, d), d / gcd(n, d));
+			try{
+				d = *denominator**(nextFraction.denominator);
+				if (d == 0)
+				{
+					throw "Possible ZERO Denominator Detected";
+				}
+				return Fraction(n / gcd(n, d), d / gcd(n, d));
+			}
+			catch (const char *e)
+			{
+				cout << e;
+			}	
 		}
 
 
@@ -233,8 +226,30 @@ int main()
 	cout << "Enter the Numerator and Denominator for the First Fraction " << endl;
 	cin >> *FractA;  // Store the inputs in the attributes of object *FractA
 
+	//Check invalid denominator input
+	try{
+		if (FractA->getDenom() == 0)
+			throw "Invalid Zero input for Denominator Detected. Please Restart and Try again";
+	}
+	catch (const char *e)
+	{
+		cout << "Exception Occurred" << endl;
+		cout << e;
+	}
+
 	cout << "Enter the Numerator and Denominator for the Second Fraction " << endl;
 	cin >> *FractB;
+
+	//Check invalid denominator input
+	try{
+		if (FractB->getDenom() == 0)
+			throw "Invalid Zero input for Denominator Detected, Please Restart and Try again";
+	}
+	catch (const char *e)
+	{
+		cout << "Exception Occurred" << endl;
+		cout << e << endl;
+	}
 
 
 	/*Running basic tests to check correctness*/
@@ -245,8 +260,20 @@ int main()
 
 	//*FractC = FractA->add(*FractB);  //Result should be 3/4
 
-	*FractC = *FractA + *FractB;
-	FractC->print(); //Print out the attributes stored in FractC object
+	try
+	{
+		if (FractA->getDenom() == 0 || FractB->getDenom() == 0)
+			throw "Possible ZERO DENOMINATOR detected";
+
+		*FractC = *FractA + *FractB;
+		FractC->print(); //Print out the attributes stored in FractC object
+	}
+
+	catch (const char *e)
+	{
+		cout << e;
+		cout << endl;
+	}
 
 	//Next I'll repeat the printout using the overloaded stream insertion operator method
 	cout << *FractC << endl;
