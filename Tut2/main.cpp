@@ -27,6 +27,7 @@
 /*6 MARCH 2016 -- Successfully overloaded the iostream operators to make it easier to input and output fractions************/
 /**************************************************************************************************************************/
 #include <iostream>
+#include <exception>
 #include <cstdio>
 #include <string>
 #include <cmath>
@@ -223,7 +224,7 @@ int main()
 	Fraction *FractC = new Fraction();  // default constructor called -- Store result in this object
 
 	cout << "Enter the Numerator and Denominator for the First Fraction " << endl;
-	cin >> *FractA;
+	cin >> *FractA;  // Store the inputs in the attributes of object *FractA
 
 	cout << "Enter the Numerator and Denominator for the Second Fraction " << endl;
 	cin >> *FractB;
